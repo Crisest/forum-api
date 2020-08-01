@@ -1,4 +1,5 @@
 import User from '../models/user'
+import { response } from 'express'
 
 export const createUser = async (req, res) => {
     const user = new User(req.body)
@@ -65,7 +66,12 @@ export const updateUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-    
+    try {
+        await req.user.remove()
+        res.send(user)
+    } catch (error) {
+        res.status(500).send(error)
+    }
 }
 
 

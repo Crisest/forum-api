@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-mongoose.connect('mongodb+srv://taskapp:Crisesttaskapp@cluster0-vwwtg.mongodb.net/forum?retryWrites=true&w=majority' ,{
+mongoose.connect(process.env.MONGO_URL ,{
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
