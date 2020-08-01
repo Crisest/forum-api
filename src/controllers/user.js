@@ -32,7 +32,8 @@ export const logoutUser = async (req, res) => {
 
         res.send()
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send(e)
+        console.log(e);
     }
 }
 
@@ -42,12 +43,29 @@ export const logoutAll = async (req, res) => {
         await req.user.save()
         res.send()
     } catch (error) {
+        res.status(500).send(error)
+        console.log(error);
+    }
+}
+
+export const getUser = async (req, res) => {
+    res.send(req.user)
+}
+
+export const updateUser = async (req, res) => {
+    try {
+        const user = await User.findOneAndUpdate({_id: req.user._id}, req.body)
+        if(!user){
+            res.status(400).send()
+        }
+        res.send({ user })
+    } catch (error) {
         res.status(500).send()
     }
 }
 
-export const getUser = (req, res) => {
-    res.send(req.user)
+export const deleteUser = async (req, res) => {
+    
 }
 
 
