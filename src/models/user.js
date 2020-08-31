@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
@@ -55,6 +55,13 @@ const userSchema = new mongoose.Schema({
             }
         }
     ]
+})
+
+// List of tasks
+userSchema.virtual('posts', {
+    ref: 'Post',
+    localField: '_id',
+    foreignField: 'owner'
 })
 
 // on instatiated object

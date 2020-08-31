@@ -68,7 +68,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         await req.user.remove()
-        res.send(user)
+        res.send(req.user)
     } catch (error) {
         res.status(500).send(error)
     }

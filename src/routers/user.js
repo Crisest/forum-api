@@ -15,21 +15,21 @@ import {
 const router = new express.Router()
 
 //Users
-router.post('/user/login', loginUser)
-router.post('/user/logout', auth, logoutUser)
-router.post('/user/logout-all', auth, logoutAll)
+router.post('/users/login', loginUser)
+router.post('/users/logout', auth, logoutUser)
+router.post('/users/logoutAll', auth, logoutAll)
 
 //User Crud
-router.post('/user', createUser)
-router.get('/user', auth, getUser)
-router.patch('/user', auth, updateUser)
-router.delete('/user', auth, deleteUser)
+router.post('/users', createUser)
+router.get('/users/me', auth, getUser)
+router.patch('/users/me', auth, updateUser)
+router.delete('/users/me', auth, deleteUser)
 
 //
 
 //Test database
-router.delete('/users', deleteAllUsers)
-router.get('/users', getAllUsers)
+router.delete('/usersAll', deleteAllUsers)
+router.get('/usersAll', getAllUsers)
 
 export default router
 
