@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    AdminForums:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'Forum'
+        }
+    ],
     tokens: [
         {
             token: {
@@ -55,22 +61,57 @@ const userSchema = new mongoose.Schema({
             }
         }
     ]
+}, {
+    timestamps: true
 })
 
-// List of tasks
+// List of Posts
 userSchema.virtual('posts', {
     ref: 'Post',
     localField: '_id',
     foreignField: 'owner'
 })
 
+// List of Replies
+userSchema.virtual('replies', {
+    ref: 'Reply',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+//Hide passwords and tokens
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+    delete userObject.avatar
+
+    return userObject
+}
+
 // on instatiated object
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({_id: user._id.toString()}, process.env.JWT_SECRET)
-    user.tokens = user.tokens.concat({token})
+    user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
+}
+
+userSchema.methods.repPost = async function () {
+    const user = this
+    user.reputation = user.reputation + 10
+    await user.save()
+    return user.reputation
+}
+
+userSchema.methods.repReply = async function () {
+    const user = this
+    user.reputation = user.reputation + 1
+    await user.save()
+    return user.reputation
 }
 
 //on class

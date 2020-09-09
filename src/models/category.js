@@ -21,6 +21,8 @@ const categorySchema = mongoose.Schema({
             }
         }
     }
+}, {
+    timestamps: true
 })
 
 categorySchema.virtual('posts', {

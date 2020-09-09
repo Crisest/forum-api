@@ -31,6 +31,14 @@ const postSchema = new mongoose.Schema({
         require: true,
         ref: 'User'
     }
+}, {
+    timestamps: true
+})
+
+postSchema.virtual('replies', {
+    ref: 'Reply',
+    localField: '_id',
+    foreignField: 'post'
 })
 
 const Post = mongoose.model('Post', postSchema)

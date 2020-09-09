@@ -46,8 +46,9 @@ export const createPost = async ( req, res ) => {
         const post = new Post(req.body)
         post.owner = req.user._id
         post.category = req.params.id
+        const reputation = req.user.repPost()
         await post.save()
-        res.status(200).send({post})
+        res.status(200).send({post, reputation})
     } catch (error) {
         res.status(400).send(error)
         console.log(error);

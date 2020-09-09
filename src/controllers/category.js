@@ -1,5 +1,4 @@
 import Category from '../models/category'
-import Post from '../models/post'
 
 //To create delete or update categories you need admin permission
 
@@ -13,6 +12,8 @@ export const createCategory = async (req, res) => {
     }
 }
 
+
+//TODO: CATEGORIES IN THE FORUM
 export const getCategories = async (req, res) => {
     try {
         const categories = await Category.find({})
